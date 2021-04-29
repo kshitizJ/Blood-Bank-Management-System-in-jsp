@@ -1,0 +1,30 @@
+<%@include file="header.html"%>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+</head>
+
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-12">
+				<%
+					String msg = request.getParameter("msg");
+				if ("valid".equals(msg)) {
+				%>
+				<p class="text-center text-danger">Successfully updated..</p>
+				<%
+					}
+				if ("invalid".equals(msg)) {
+				%>
+				<p class="text-center text-danger">Invalid data try again..</p>
+				<%
+					}
+				%>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

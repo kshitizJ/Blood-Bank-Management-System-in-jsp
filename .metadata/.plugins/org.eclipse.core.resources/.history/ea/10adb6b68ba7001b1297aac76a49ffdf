@@ -1,0 +1,9 @@
+<%@page import="project.ConnectionProvider"%>
+<%@page import="java.sql.*"%>
+<%
+	String name = request.getParameter("name");
+	String number = request.getParameter("number");
+	String email = request.getParameter("email");
+	String bloodgroup = request.getParameter("bgrp");
+	String status = "pending";
+%>

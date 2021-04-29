@@ -1,0 +1,17 @@
+<%@page import="project.ConnectionProvider"%>
+<%@page import="java.sql.*"%>
+<%
+	int id = Integer.parseInt(request.getParameter("id"));
+	String name = request.getParameter("name");
+	String fname = request.getParameter("fname");
+	String mname = request.getParameter("mname");
+	String number = request.getParameter("number");
+	String gender = request.getParameter("gender");
+	String email = request.getParameter("email");
+	String brgp = request.getParameter("brgp");
+	String address = request.getParameter("address");
+	Date date = Date.valueOf(request.getParameter("date"));
+	try{
+		
+	}
+%>

@@ -1,0 +1,118 @@
+<%@page import="java.sql.*"%>
+<%@page import="project.ConnectionProvider"%>
+<%@include file="header.html"%>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+.container {
+	margin-top: 75px;
+}
+.form {
+	margin-top: 20px;
+}
+</style>
+</head>
+
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<h1 class="text-center">Enter Donor Details</h1>
+			</div>
+			<div class="col-12">
+				<%
+					int id = 1;
+					// System.out.println(id);
+					try {
+						Connection con = ConnectionProvider.getCon();
+						// System.out.println(con);
+						Statement st = con.createStatement();
+						// System.out.println(st);
+						ResultSet rs = st.executeQuery("select max(id) from donor;");
+						// System.out.println(rs);
+						if (rs.first()) {
+							System.out.println(rs.first());
+							id = rs.getInt(1);
+							id += 1;
+						}
+				%>
+				<h3 class="text-center text-danger">
+					Donor ID: <%out.print(id);%>
+				</h3>
+			</div>
+			<%
+				} catch (Exception e) {
+			}
+			%>
+			<div class="col-12">
+				<form class="form row d-flex justify-content-center"
+					action="addNewDonorAction.jsp" method="POST">
+					<input type="hidden" class="form-control" name="id"
+						value="<%out.print(id);%>">
+					<div class="mb-3 col-md-3">
+						<label for="name" class="form-label">Full Name</label> <input
+							type="text" class="form-control" id="name" name="name"
+							placeholder="Full Name">
+					</div>
+					<div class="mb-3 col-md-3">
+						<label for="fname" class="form-label">Father Name</label> <input
+							type="text" class="form-control" id="fname" name="fname"
+							placeholder="Father Name">
+					</div>
+					<div class="mb-3 col-md-3">
+						<label for="mname" class="form-label">Mother Name</label> <input
+							type="text" class="form-control" id="mname" name="mname"
+							placeholder="Mother Name">
+					</div>
+					<div class="mb-3 col-md-3">
+						<label for="number" class="form-label">Number</label> <input
+							type="text" class="form-control" id="number" name="number"
+							placeholder="Mobile Number">
+					</div>
+					<div class="mb-3 col-md-3">
+						<label for="gender" class="form-label">Gender</label> <select
+							class="form-select" id="gender" name="gender">
+							<option selected>Choose...</option>
+							<option value="1">Male</option>
+							<option value="2">Female</option>
+							<option value="3">Others</option>
+						</select>
+					</div>
+					<div class="mb-3 col-md-3">
+						<label for="email" class="form-label">Email address</label> <input
+							type="email" class="form-control" id="email" name="email"
+							placeholder="name@example.com">
+					</div>
+					<div class="mb-3 col-md-3">
+						<label for="brgp" class="form-label">Blood Group</label> <select
+							class="form-select" id="brgp" name="brgp">
+							<option selected>Choose...</option>
+							<option value="A+">A+</option>
+							<option value="A-">A-</option>
+							<option value="B+">B+</option>
+							<option value="B-">B-</option>
+							<option value="O+">O+</option>
+							<option value="O-">O-</option>
+							<option value="AB+">AB+</option>
+							<option value="AB-">AB-</option>
+
+						</select>
+					</div>
+					<div class="mb-3 col-md-3">
+						<span class="form-label">Address</span>
+						<textarea class="form-control" aria-label="With textarea"
+							name="address"></textarea>
+					</div>
+					<button type="submit" class="btn btn-primary col-3">Submit</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

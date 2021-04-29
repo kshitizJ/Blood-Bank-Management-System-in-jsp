@@ -1,0 +1,92 @@
+<%@page import="project.ConnectionProvider" %>
+<%@page import="java.sql.*" %>
+<%@include file="header.html"%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Edit Delete List</title>
+<style>
+#customers {
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	border-collapse: collapse;
+	width: 95%;
+}
+
+#customers td, #customers th {
+	border: 1px solid #ddd;
+	padding: 8px;
+}
+
+#customers tr:nth-child(even) {
+	background-color: #f2f2f2;
+}
+
+#customers tr:hover {
+	background-color: #ddd;
+}
+
+#customers th {
+	padding-top: 12px;
+	padding-bottom: 12px;
+	text-align: left;
+	background-color: #4CAF50;
+	color: white;
+}
+</style>
+</head>
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-12">
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>Name</th>
+							<th>Father name</th>
+							<th>Mother Name</th>
+							<th>Number</th>
+							<th>Gender</th>
+							<th>Email</th>
+							<th>Blood Group</th>
+							<th>Address</th>
+							<th>Edit</th>
+							<th>Delete</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<%
+								try{
+									Connection con = ConnectionProvider.getCon();
+									Statement st = con.createStatement();
+									ResultSet rs = st.executeQuery("select * from donor");
+									while(rs.next()){
+										%>
+										<td><% rs.getInt(1); %></td>
+                                        <td><% %></td>
+                                        <td><% %></td>
+                                        <td><% %></td>
+                                        <td><% %></td>
+                                        <td><% %></td>
+                                        <td><% %></td>
+                                        <td><% %></td>
+                                        <td><% %></td>
+                                        <td><% %></td>
+										<%
+									}
+								}catch(Exception e){
+									
+								}
+							%>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

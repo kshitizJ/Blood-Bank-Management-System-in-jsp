@@ -1,0 +1,117 @@
+<%@page import="project.ConnectionProvider"%>
+<%@page import="java.sql.*"%>
+<%@include file="header.html"%>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="style.css" type="text/css" media="screen">
+</head>
+
+<body>
+	<br>
+	<h1 class="text-center">Update Donor Details</h1>
+	<br>
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<%
+					int id = Integer.parseInt(request.getParameter("id"));
+				try {
+					Connection con = ConnectionProvider.getCon();
+					Statement st = con.createStatement();
+					ResultSet rs = st.executeQuery("select * from donor where id = " + id + ";");
+					while (rs.next()) {
+				%>
+				<form class="form row d-flex justify-content-center"
+					action="addNewDonorAction.jsp" method="POST">
+					<input type="hidden" class="form-control" name="id"
+						value="<%out.print(id);%>">
+					<div class="mb-3 col-md-3">
+						<label for="name" class="form-label">Full Name</label> <input
+							type="text" class="form-control" value="<%=rs.getString(2)%>"
+							id="name" name="name" placeholder="Full Name">
+					</div>
+					<div class="mb-3 col-md-3">
+						<label for="fname" class="form-label">Father Name</label> <input
+							type="text" class="form-control" value="<%=rs.getString(3)%>"
+							id="fname" name="fname" placeholder="Father Name">
+					</div>
+					<div class="mb-3 col-md-3">
+						<label for="mname" class="form-label">Mother Name</label> <input
+							type="text" class="form-control" value="<%=rs.getString(4)%>"
+							id="mname" name="mname" placeholder="Mother Name">
+					</div>
+					<div class="mb-3 col-md-3">
+						<label for="number" class="form-label">Number</label> <input
+							type="text" class="form-control" value="<%=rs.getString(5)%>"
+							id="number" name="number" placeholder="Mobile Number">
+					</div>
+					<div class="mb-3 col-md-3">
+						<label for="gender" class="form-label">Gender</label> <select
+							class="form-select" id="gender" name="gender">
+							<option>Choose...</option>
+							<%
+								if ("Male".equals(rs.getString(6))) {
+							%>
+							<option selected value="Male">Male</option>
+							<%
+								} else {
+							%>
+							<option value="Male">Male</option>
+							<%
+								}
+							if ("Female".equals(rs.getString(6))) {
+							%>
+							<option selected value="Female">Female</option>
+							<%
+								} else {
+							%>
+							<option value="Others">Others</option>
+							<%
+								}
+							%>
+						</select>
+					</div>
+					<div class="mb-3 col-md-3">
+						<label for="email" class="form-label">Email address</label> <input
+							type="email" class="form-control" id="email" name="email"
+							placeholder="name@example.com">
+					</div>
+					<div class="mb-3 col-md-3">
+						<label for="brgp" class="form-label">Blood Group</label> <select
+							class="form-select" id="brgp" name="brgp">
+							<option selected>Choose...</option>
+							<option value="A+">A+</option>
+							<option value="A-">A-</option>
+							<option value="B+">B+</option>
+							<option value="B-">B-</option>
+							<option value="O+">O+</option>
+							<option value="O-">O-</option>
+							<option value="AB+">AB+</option>
+							<option value="AB-">AB-</option>
+
+						</select>
+					</div>
+					<div class="mb-3 col-md-3">
+						<span class="form-label">Address</span>
+						<textarea class="form-control" aria-label="With textarea"
+							name="address"></textarea>
+					</div>
+					<button type="submit" class="btn btn-primary col-3">Submit</button>
+				</form>
+				<%
+					}
+				} catch (Exception e) {
+				System.out.println(e.getMessage());
+				}
+				%>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,96 @@
+<%@page import="java.sql.*"%>
+<%@page import="project.ConnectionProvider"%>
+<%@include file="header.html"%>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<style>
+		.size{
+			width: 400px;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-12">
+				<h1 class="text-center">Manage Stock</h1>
+			</div>
+			<div class="col-12">
+				<%
+					String msg = request.getParameter("msg");
+				if ("valid".equals(msg)) {
+				%>
+				<p class="text-center text-danger">Successfully updated..</p>
+				<%
+					}
+				if ("invalid".equals(msg)) {
+				%>
+				<p class="text-center text-danger">Invalid data try again..</p>
+				<%
+					}
+				%>
+			</div>
+			<div class="col-12">
+				<form class="form row d-flex justify-content-center"
+					action="addNewDonorAction.jsp" method="POST">
+					<div class="mb-3 col-md-3">
+						<label for="brgp" class="form-label">Blood Group</label> <select
+							class="form-select" id="brgp" name="brgp">
+							<option selected>Choose...</option>
+							<option value="A+">A+</option>
+							<option value="A-">A-</option>
+							<option value="B+">B+</option>
+							<option value="B-">B-</option>
+							<option value="O+">O+</option>
+							<option value="O-">O-</option>
+							<option value="AB+">AB+</option>
+							<option value="AB-">AB-</option>
+						</select>
+					</div>
+					<div class="mb-3 col-md-3">
+						<label class="form-label" for="typeNumber">Number input</label> <input
+							type="number" id="typeNumber" class="form-control" name="units"/>
+					</div>
+					<div class="offset-md-3"></div>
+					<button type="submit" class="btn btn-primary col-3">Update</button>
+				</form>
+			</div>
+			<br>
+			<br>
+			<div class="mb-3 col-12 d-flex justify-content-center">
+				<table class="size table table-bordered table-striped table-hover text-center">
+					<thead>
+						<tr>
+							<th scope="col">Blood Group</th>
+							<th scope="col">Units</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<%
+								try {
+								Connection con = ConnectionProvider.getCon();
+								Statement st = con.createStatement();
+								ResultSet rs = st.executeQuery("select * from stock;");
+								while (rs.next()) {
+							%>
+							<td><%=rs.getString(1)%></td>
+							<td><%=rs.getInt(2)%></td>
+						</tr>
+						<%
+							}
+						} catch (Exception e) {
+						System.out.print(e.getMessage());
+						}
+						%>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

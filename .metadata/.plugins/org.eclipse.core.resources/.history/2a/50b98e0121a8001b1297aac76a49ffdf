@@ -1,0 +1,57 @@
+<%@include file="header.html"%>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+</head>
+
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-12">
+				<h1 class="text-center">Manage Stock</h1>
+			</div>
+			<div class="col-12">
+				<%
+					String msg = request.getParameter("msg");
+				if ("valid".equals(msg)) {
+				%>
+				<p class="text-center text-danger">Successfully updated..</p>
+				<%
+					}
+				if ("invalid".equals(msg)) {
+				%>
+				<p class="text-center text-danger">Invalid data try again..</p>
+				<%
+					}
+				%>
+			</div>
+			<div class="col-12">
+				<form class="form row d-flex justify-content-center"
+					action="addNewDonorAction.jsp" method="POST">
+					<div class="mb-3 col-md-3">
+						<label for="brgp" class="form-label">Blood Group</label> <select
+							class="form-select" id="brgp" name="brgp">
+							<option selected>Choose...</option>
+							<option value="A+">A+</option>
+							<option value="A-">A-</option>
+							<option value="B+">B+</option>
+							<option value="B-">B-</option>
+							<option value="O+">O+</option>
+							<option value="O-">O-</option>
+							<option value="AB+">AB+</option>
+							<option value="AB-">AB-</option>
+						</select>
+					</div>
+					<div class="form-outline">
+						<input type="number" id="typeNumber" class="form-control" /> <label
+							class="form-label" for="typeNumber">Number input</label>
+					</div>
+					<button type="submit" class="btn btn-primary col-3">Submit</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

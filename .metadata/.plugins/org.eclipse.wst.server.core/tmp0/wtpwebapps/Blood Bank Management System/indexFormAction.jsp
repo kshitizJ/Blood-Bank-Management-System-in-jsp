@@ -1,0 +1,22 @@
+<%@page import="project.ConnectionProvider"%>
+<%@page import="java.sql.*"%>
+<%
+	String name = request.getParameter("name");
+	String number = request.getParameter("number");
+	String email = request.getParameter("email");
+	String bloodgroup = request.getParameter("brgp");
+	String status = "pending";
+	try {
+		Connection con = ConnectionProvider.getCon();
+		PreparedStatement ps = con.prepareStatement("insert into bloodrequest value (?,?,?,?,?);");
+		ps.setString(1, name);
+		ps.setString(2, number);
+		ps.setString(3, email);
+		ps.setString(4, bloodgroup);
+		ps.setString(5, status);
+		ps.executeUpdate();
+		response.sendRedirect("index.jsp?msg=valid");
+	} catch (Exception e) {
+		response.sendRedirect("index.jsp?msg=invalid");
+	}
+%>

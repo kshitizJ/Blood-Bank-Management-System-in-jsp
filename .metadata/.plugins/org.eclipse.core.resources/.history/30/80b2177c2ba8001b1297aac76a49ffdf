@@ -1,0 +1,55 @@
+<%@page import="java.sql.*"%>
+<%@page import="project.ConnectionProvider"%>
+<%@include file="header.html"%>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+</head>
+
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<table class="table table-bordered table-striped table-hover">
+					<thead>
+						<tr>
+							<th scope="col">Name</th>
+							<th scope="col">Number</th>
+							<th scope="col">Email</th>
+							<th scope="col">Blood Group</th>
+							<th scope="col">Done</th>
+							<th scope="col">Delete</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<%
+								try {
+								Connection con = ConnectionProvider.getCon();
+								Statement st = con.createStatement();
+								ResultSet rs = st.executeQuery("select * from bloodrequest where statuss = 'pending';");
+								while (rs.next()) {
+							%>
+							<td><%=rs.getString(1)%></td>
+							<td><%=rs.getString(2)%></td>
+							<td><%=rs.getString(3)%></td>
+							<td><%=rs.getString(4)%></td>
+							<td><a class="btn btn-primary"
+								href="requestForBloodDone.jsp?number=<%=rs.getInt(1)%>">Done</a></td>
+							<td><a class="btn btn-danger"
+								href="requestForBloodDelete.jsp?id=<%=rs.getInt(1)%>">Delete</a></td>
+						</tr>
+						<%
+							}
+						} catch (Exception e) {
+						System.out.print(e.getMessage());
+						}
+						%>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

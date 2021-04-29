@@ -1,0 +1,16 @@
+<%@page import="project.ConnectionProvider"%>
+<%@page import="java.sql.*"%>
+<%
+	String brgp = request.getParameter("brgp");
+	int units = Integer.parseInt(request.getParameter("units"));
+	try {
+		Connection con = ConnectionProvider.getCon();
+		PreparedStatement preparedStatement = con.prepareStatement("update stock set unit=? where bloodgroup = '"+brgp+"' ;");
+		preparedStatement.setInt(1, units);
+		preparedStatement.executeUpdate();
+		response.sendRedirect("manageStock.jsp?msg=valid");
+	} catch (Exception e) {
+		response.sendRedirect("manageStock.jsp?msg=invalid");
+		System.out.println(e.getMessage());
+	}
+%>
